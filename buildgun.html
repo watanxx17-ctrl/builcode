@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SINDYXR ALL BUILD CODE!! 🔫</title>
+    <style>
+        
+        /* CSS สำหรับการตกแต่งสไตล์ Dark Theme/Tech */
+        :root {
+            --dark-bg: #1a1a2e;
+            --main-bg: #111521; /* พื้นหลังหลัก */
+            --card-bg: #2b2b4d;
+            --code-bg: #1b1e32;
+            --main-color: #0f4c75;
+            --accent-color-copy: #9333ea; /* สีม่วงสำหรับปุ่ม Copy */
+            --accent-color-show: #4f4f4f; /* สีเทาเข้มสำหรับปุ่ม Show Code */
+            --text-color: #e0e0e0;
+            --sub-text-color: #a0a0a0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--main-bg);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header {
+            padding: 20px;
+            margin-bottom: 30px;
+            color: var(--text-color);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        #search-container {
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--accent-color-copy);
+        }
+        
+        #search-input {
+            width: 80%;
+            max-width: 500px;
+            padding: 15px;
+            font-size: 1.1em;
+            border: 1px solid var(--accent-color-copy);
+            border-radius: 8px;
+            background-color: var(--code-bg);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            margin-bottom: 20px; 
+        }
+
+        #search-input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(147, 51, 234, 0.5);
+        }
+        
+        /* --- Filter Buttons Container --- */
+        #filter-buttons {
+            max-width: 1000px; 
+            margin: 0 auto 30px auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px 0;
+        }
+
+        .filter-btn {
+            background-color: var(--accent-color-show);
+            color: var(--text-color);
+            border: 1px solid #4a4a6d;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        .filter-btn:hover {
+            background-color: #666;
+        }
+
+        .filter-btn.active {
+            background-color: var(--accent-color-copy);
+            border-color: var(--accent-color-copy);
+            box-shadow: 0 0 8px rgba(147, 51, 234, 0.7);
+        }
+        
+        /* --- Grid Container --- */
+        #gun-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- Card Style --- */
+        .gun-card {
+            background-color: #1e263a; 
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            text-align: center;
+            padding: 0;
+            transition: transform 0.2s;
+        }
+
+        .gun-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(147, 51, 234, 0.3);
+        }
+
+        .gun-image-container {
+            height: 180px;
+            background-color: #313a4d; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gun-image-container img {
+            max-height: 200px;
+            max-width: 100%;
+            object-fit: cover;
+            border-bottom: 2px solid var(--accent-color-copy); 
+        }
+
+        .gun-image-container p {
+            color: var(--sub-text-color);
+            font-style: italic;
+        }
+
+        .gun-info {
+            padding: 15px 10px 20px 10px;
+        }
+
+        .gun-info h2 {
+            margin: 5px 0 2px 0;
+            font-size: 1.4em;
+            color: var(--text-color);
+        }
+
+        .gun-info p {
+            margin: 0;
+            color: var(--sub-text-color);
+            font-size: 0.9em;
+        }
+
+        /* --- Code Display & Buttons --- */
+        .code-display {
+            background-color: var(--code-bg);
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 5px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            word-break: break-all;
+            font-size: 0.8em;
+            text-align: left;
+            border: 1px solid #4a4a6d;
+        }
+        
+        .code-display.hidden {
+            display: none;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            flex-grow: 1;
+        }
+
+        .btn-show {
+            background-color: var(--accent-color-show);
+            color: white;
+        }
+
+        .btn-show:hover {
+            background-color: #666;
+        }
+
+        .btn-copy {
+            background-color: var(--accent-color-copy);
+            color: white;
+            flex-grow: 1;
+        }
+
+        .btn-copy:hover {
+            background-color: #7b29c9;
+            box-shadow: 0 0 8px rgba(147, 51, 234, 0.7);
+        }
+
+        .copy-success {
+            color: #4CAF50;
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 0.9em;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+    
+</head>
+<body>
+
+    <header>
+        <h1>GOD BUILD CODE BY SINDYXR</h1>
+        <p>_______________________________________</p>
+    </header>
+    
+    <div id="search-container">
+        <input type="text" id="search-input" placeholder="พิมพ์ชื่อปืนเพื่อค้นหา" onkeyup="filterGuns()">
+        
+        <div id="filter-buttons">
+            </div>
+    </div>
+    
+    <div id="gun-list">
+    </div>
+
+    <script>
+        // ข้อมูลโค้ดปืน (มีการเพิ่มปืน M250 ซ้ำกันตามรูปตัวอย่างของคุณ)
+        const guns = [
+            {
+                name: "M250",
+                type: "Light Machine Gun",
+                code: "M250 General Machine Gun-Operations-6HNBPV400UQCIBP788D1T",
+                imageUrl: "img/m250-1.jpg" 
+            },
+            {
+                name: "M250",
+                type: "Light Machine Gun",
+                code: "M250 General Machine Gun-Operations-6HNBQC800UQCIBP788D1T",
+                imageUrl: "img/m250-2.jpg" 
+            },
+            {
+                name: "M250",
+                type: "Light Machine Gun",
+                code: "M250 General Machine Gun-Operations-6HNBQCO00UQCIBP788D1T",
+                imageUrl: "img/m250-3.jpg" 
+            },
+            {
+                name: "M250",
+                type: "Light Machine Gun",
+                code: "M250 General Machine Gun-Operations-6HNBPV400UQCIBP788D1T",
+                imageUrl: "img/m250-4.jpg" 
+            },
+            {
+                name: "M250",
+                type: "Light Machine Gun",
+                code: "M250 General Machine Gun-Operations-6HNBQDC00UQCIBP788D1T",
+                imageUrl: "img/m250-5.jpg" 
+            },
+            {
+                name: "M249",
+                type: "Light Machine Gun",
+                code: "M249 Light Machine Gun-Operations-6HNBQJO00UQCIBP788D1T", 
+                imageUrl: "img/m249-1.jpg"
+            },
+            {
+                name: "PKM",
+                type: "Light Machine Gun",
+                code: "PKM General Machine Gun-Operations-6HNBQM000UQCIBP788D1T", 
+                imageUrl: "img/pkm-1.jpg"
+            },
+            {
+                name: "PKM",
+                type: "Light Machine Gun",
+                code: "PKM General Machine Gun-Operations-6HNBQQ400UQCIBP788D1T", 
+                imageUrl: "img/pkm-2.jpg"
+            },
+            {
+                name: "PKM",
+                type: "Light Machine Gun",
+                code: "PKM General Machine Gun-Operations-6HNBQS400UQCIBP788D1T", 
+                imageUrl: "img/pkm-3.jpg"
+            },
+            {
+                name: "PKM",
+                type: "Light Machine Gun",
+                code: "PKM General Machine Gun-Operations-6HKLN3O00UQCIBP788D1T", 
+                imageUrl: "img/pkm-4.jpg"
+            },
+            {
+                name: "MK47",
+                type: "Assault Rifle",
+                code: "MK47 Assault Rifle-Operations-6HNBR0G00UQCIBP788D1T", 
+                imageUrl: "img/mk47-1.jpg"
+            },
+            {
+                name: "KC17",
+                type: "Assault Rifle",
+                code: "KC17 Assault Rifle-Operations-6HNBR3800UQCIBP788D1T", 
+                imageUrl: "img/kc17-1.jpg"
+            },
+            {
+                name: "K437",
+                type: "Assault Rifle",
+                code: "K437 Assault Rifle-Operations-6HL9VI000UQCIBP788D1T", 
+                imageUrl: "img/k437-1.jpg"
+            },
+            {
+                name: "CI-19",
+                type: "Assault Rifle",
+                code: "CI-19 Assault Rifle-Operations-6HN01EO00UQCIBP788D1T", 
+                imageUrl: "img/ci-1.jpg"
+            },
+            {
+                name: "M7",
+                type: "Assault Rifle",
+                code: "M7 Battle Rifle-Operations-6HNBRL800UQCIBP788D1T", 
+                imageUrl: "img/m7-1.jpg"
+            },
+            {
+                name: "M7",
+                type: "Assault Rifle",
+                code: "M7 Battle Rifle-Operations-6HKGC3K00UQCIBP788D1T", 
+                imageUrl: "img/m7-2.jpg"
+            },
+            {
+                name: "M7",
+                type: "Assault Rifle",
+                code: "M7 Battle Rifle-Operations-6HNBRMO00UQCIBP788D1T", 
+                imageUrl: "img/m7-3.jpg"
+            },
+            {
+                name: "M7",
+                type: "Assault Rifle",
+                code: "M7 Battle Rifle-Operations-6HNBRNC00UQCIBP788D1T", 
+                imageUrl: "img/m7-4.jpg"
+            },
+            {
+                name: "M7",
+                type: "Assault Rifle",
+                code: "M7 Battle Rifle-Operations-6HLRNHO00UQCIBP788D1T", 
+                imageUrl: "img/m7-5.jpg"
+            },
+            {
+                name: "AUG",
+                type: "Assault Rifle",
+                code: "AUG Assault Rifle-Operations-6HNBRTG00UQCIBP788D1T", 
+                imageUrl: "img/aug-1.jpg"
+            },
+            {
+                name: "AUG",
+                type: "Assault Rifle",
+                code: "AUG Assault Rifle-Operations-6HNBRU400UQCIBP788D1T", 
+                imageUrl: "img/aug-2.jpg"
+            },
+            {
+                name: "K416",
+                type: "Assault Rifle",
+                code: "K416 Assault Rifle-Operations-6HNBS0000UQCIBP788D1T", 
+                imageUrl: "img/k416-1.jpg"
+            },
+            {
+                name: "ASh-12",
+                type: "Assault Rifle",
+                code: "ASh-12 Assault Rifle-Operations-6HNBS2G00UQCIBP788D1T", 
+                imageUrl: "img/ash-1.jpg"
+            },
+            {
+                name: "SR-25",
+                type: "Marksman Rifle",
+                code: "SR-25 Marksman Rifle-Operations-6HNBS9400UQCIBP788D1T", 
+                imageUrl: "img/sr25-1.jpg"
+            },
+            {
+                name: "M14",
+                type: "Marksman Rifle",
+                code: "M14 Marksman Rifle-Operations-6HNBSJG00UQCIBP788D1T", 
+                imageUrl: "img/m14-1.jpg"
+            },
+            {
+                name: "M14",
+                type: "Marksman Rifle",
+                code: "M14 Marksman Rifle-Operations-6HNBSKK00UQCIBP788D1T", 
+                imageUrl: "img/m14-2.jpg"
+            },
+            {
+                name: "M14",
+                type: "Marksman Rifle",
+                code: "M14 Marksman Rifle-Operations-6HNBSLO00UQCIBP788D1T", 
+                imageUrl: "img/m14-3.jpg"
+            },
+            {
+                name: "AWM",
+                type: "Sniper Rifle",
+                code: "AWM Sniper Rifle-Operations-6HNBSNO00UQCIBP788D1T", 
+                imageUrl: "img/aw-1.jpg"
+            },
+            {
+                name: "M700",
+                type: "Sniper Rifle",
+                code: "M700 Sniper Rifle-Operations-6HNBSS400UQCIBP788D1T", 
+                imageUrl: "img/m700-1.jpg"
+            },
+            {
+                name: "IPAD PRO M4",
+                type: "HUD",
+                code: "ab3b-7468-3101-fff0-ee8e", 
+                imageUrl: "img/hudipad.jpg"
+            },
+            {
+                name: "I PHONE 13PM",
+                type: "HUD",
+                code: "6163-193b-0ec1-955a-4f82", 
+                imageUrl: "img/hudiphone.jpg"
+            },
+
+        ];
+
+        const gunListElement = document.getElementById('gun-list');
+        const filterButtonsElement = document.getElementById('filter-buttons');
+        let currentFilterType = 'All'; 
+
+        // ********** ฟังก์ชันสร้าง Card ปืน (แก้ไขให้ ID ไม่ซ้ำกัน) **********
+        function renderGuns(gunArray) {
+            gunListElement.innerHTML = ''; 
+            
+            // ใช้ forEach พร้อม index เพื่อสร้าง ID ที่ไม่ซ้ำกัน
+            gunArray.forEach((gun, index) => {
+                // สร้าง ID เฉพาะ: ชื่อปืน + ลำดับ (index) เช่น "M250-0", "M250-1"
+                const uniqueId = gun.name.replace(/\s/g, '-') + '-' + index; 
+                
+                const card = document.createElement('div');
+                card.className = 'gun-card';
+                card.setAttribute('data-gun-name', gun.name.toLowerCase());
+
+                
+                // โครงสร้าง Card ใช้ uniqueId ในทุกส่วนที่ต้องการ ID เฉพาะ
+                card.innerHTML = `
+                    <div class="gun-image-container">
+                        <img src="${gun.imageUrl}" alt="${gun.name}" onerror="this.onerror=null;this.src='https://via.placeholder.com/100x50?text=No+Image'; this.style.opacity='0';">
+                        ${!gun.imageUrl || gun.imageUrl.includes('placeholder') ? '<p>No Image</p>' : ''}
+                    </div>
+                    <div class="gun-info">
+                        <h2>${gun.name.toUpperCase()}</h2>
+                        <p>${gun.type}</p>
+                        
+                        <div class="code-display hidden" id="code-box-${uniqueId}" data-code="${gun.code}">
+                            ${gun.code}
+                        </div>
+                        
+                        <div class="button-group">
+                            <button class="btn btn-show" id="show-btn-${uniqueId}" onclick="toggleCode('${uniqueId}', this)">
+                                Show Code
+                            </button>
+                            <button class="btn btn-copy" onclick="copyCode('${uniqueId}', this)">
+                                Copy
+                            </button>
+                        </div>
+                        <p class="copy-success hidden" id="success-msg-${uniqueId}">คัดลอกสำเร็จ!</p>
+                    </div>
+                `;
+                
+                gunListElement.appendChild(card);
+            });
+        }
+        // *******************************************************************
+
+        // ฟังก์ชัน: สร้างปุ่มประเภทปืน (ไม่เปลี่ยนแปลง)
+        function createFilterButtons() {
+            const types = ['All'];
+            guns.forEach(gun => {
+                if (!types.includes(gun.type)) {
+                    types.push(gun.type);
+                }
+            });
+
+            filterButtonsElement.innerHTML = '';
+
+            types.forEach(type => {
+                const button = document.createElement('button');
+                button.className = 'filter-btn';
+                if (type === 'All') {
+                    button.classList.add('active');
+                }
+                button.textContent = type;
+                button.setAttribute('onclick', `filterByType('${type}', this)`);
+                filterButtonsElement.appendChild(button);
+            });
+        }
+        
+        // ฟังก์ชัน: กรองตามประเภทปืน (ไม่เปลี่ยนแปลง)
+        function filterByType(type, buttonElement) {
+            currentFilterType = type;
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            buttonElement.classList.add('active');
+            
+            document.getElementById('search-input').value = '';
+
+            if (type === 'All') {
+                renderGuns(guns);
+            } else {
+                const filteredGuns = guns.filter(gun => gun.type === type);
+                renderGuns(filteredGuns);
+            }
+        }
+        
+        // ฟังก์ชันค้นหา/กรองปืน (ไม่เปลี่ยนแปลง)
+        function filterGuns() {
+            const input = document.getElementById('search-input');
+            const filterText = input.value.toLowerCase();
+            
+            const filteredByText = guns.filter(gun => {
+                const nameMatch = gun.name.toLowerCase().includes(filterText);
+                const typeMatch = gun.type.toLowerCase().includes(filterText);
+                return nameMatch || typeMatch;
+            });
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            currentFilterType = 'Search'; 
+
+            renderGuns(filteredByText);
+        }
+        
+        // ********** ฟังก์ชันสลับการแสดงโค้ด (ใช้ uniqueId แทน gunId เดิม) **********
+        function toggleCode(uniqueId, buttonElement) {
+            const codeBox = document.getElementById(`code-box-${uniqueId}`);
+            const isHidden = codeBox.classList.contains('hidden');
+
+            if (isHidden) {
+                codeBox.classList.remove('hidden');
+                buttonElement.textContent = 'Hide Code';
+            } else {
+                codeBox.classList.add('hidden');
+                buttonElement.textContent = 'Show Code';
+            }
+            // ใช้ uniqueId
+            document.getElementById(`success-msg-${uniqueId}`).classList.add('hidden');
+        }
+
+        // ********** ฟังก์ชันคัดลอกโค้ด (ใช้ uniqueId แทน gunId เดิม) **********
+        function copyCode(uniqueId, buttonElement) {
+            const codeBox = document.getElementById(`code-box-${uniqueId}`);
+            const code = codeBox.getAttribute('data-code');
+            const successMsg = document.getElementById(`success-msg-${uniqueId}`);
+            const showButton = document.getElementById(`show-btn-${uniqueId}`);
+
+            // 1. แสดงโค้ดก่อนคัดลอก (ถ้ายังซ่อนอยู่)
+            if (codeBox.classList.contains('hidden')) {
+                codeBox.classList.remove('hidden');
+                showButton.textContent = 'Hide Code';
+            }
+
+            // 2. คัดลอก
+            navigator.clipboard.writeText(code).then(() => {
+                // 3. แสดงข้อความสำเร็จ
+                successMsg.classList.remove('hidden');
+                buttonElement.textContent = 'COPIED! ✅';
+                
+                // 4. คืนค่าปุ่มใน 3 วินาที
+                setTimeout(() => {
+                    successMsg.classList.add('hidden');
+                    buttonElement.textContent = 'Copy';
+                }, 3000);
+
+            }).catch(err => {
+                console.error('ไม่สามารถคัดลอกได้:', err);
+                alert('ไม่สามารถคัดลอกได้ โปรดลองคัดลอกด้วยตนเอง');
+            });
+        }
+        // *******************************************************************
+
+
+        // เรียกใช้ฟังก์ชันเมื่อโหลดหน้าเว็บครั้งแรก
+        document.addEventListener('DOMContentLoaded', () => {
+            createFilterButtons(); 
+            renderGuns(guns); 
+        });
+    </script>
+    
+
+</body>
+</html>
